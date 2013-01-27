@@ -1,0 +1,5 @@
+env/
+tmp/
+*.pyc
+bizlist/bizlist/local_settings.py
+bizlist/bizlist/media/
