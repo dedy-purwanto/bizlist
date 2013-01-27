@@ -118,10 +118,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+
+    'south',
+    'easy_thumbnails',
+    'widget_tweaks',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -152,3 +154,19 @@ LOGGING = {
         },
     }
 }
+
+APPEND_SLASH = True
+
+#Email settings
+EMAIL_BCC_LIST = ['kecebongsoft@gmail.com',]
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/mail'
+EMAIL_PRODUCTION_MODE = False
+EMAIL_SENDER = 'kecebongsoft@gmail.com'
+EMAIL_REPLY_TO = 'kecebongsoft@gmail.com'
+EMAIL_ADMIN = 'kecebongsoft@gmail.com'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
