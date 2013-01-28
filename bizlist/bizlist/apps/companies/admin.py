@@ -20,6 +20,8 @@ class CompanyForm(forms.ModelForm):
 
 class CompanyAdmin(admin.ModelAdmin):
 
+    form = CompanyForm
+
     list_display = (
             'id',
             'title',
