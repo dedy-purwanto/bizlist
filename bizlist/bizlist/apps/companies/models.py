@@ -17,7 +17,7 @@ class Company(models.Model):
     telephone = models.CharField(max_length=255, blank=True, null=True)
     fax = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField()
     person_in_charge = models.CharField(max_length=255, blank=True, null=True)
     person_position = models.CharField(max_length=255, blank=True, null=True)
     description_wanted = models.TextField(blank=True, null=True)
