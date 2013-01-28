@@ -24,6 +24,8 @@ class Company(models.Model):
     logo_url = models.URLField(blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -40,6 +42,8 @@ class Product(models.Model):
     price = models.CharField(max_length=255)
     price_remakrs = models.CharField(max_length=255, blank=True, null=True)
     photo_url = models.URLField(blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -48,3 +52,15 @@ class Product(models.Model):
 class Photo(models.Model):
     picture = models.ImageField('Picture', blank=True, null=True, upload_to='photos/%Y/%m/%d')
     company = models.ForeignKey(Company, blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+class Inquiry(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
+    message = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+

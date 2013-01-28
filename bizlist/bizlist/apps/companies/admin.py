@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from fields.googlemapsearch import GoogleMapsWidget
 
-from .models import Company, Product, Photo
+from .models import Company, Product, Photo, Inquiry
 
 class CompanyForm(forms.ModelForm):
     latitude = forms.CharField(label="Map",widget = GoogleMapsWidget(
@@ -49,3 +49,13 @@ class PhotoAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(Photo, PhotoAdmin)
+
+class InquiryAdmin(admin.ModelAdmin):
+
+    list_display = (
+            'id',
+            'name',
+            'email'
+    )
+
+admin.site.register(Inquiry, InquiryAdmin)
