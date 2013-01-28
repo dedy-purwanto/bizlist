@@ -7,6 +7,7 @@ class Article(models.Model):
     description = models.TextField()
     meta_keywords = models.CharField(max_length=255, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
+    slug = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
