@@ -137,6 +137,7 @@ INSTALLED_APPS = (
 
     'references',
     'articles',
+    'companies'
 )
 
 # A sample logging configuration. The only tangible logging
