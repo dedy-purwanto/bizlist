@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from references.models import Location, Category
+from references.models import State, Category
 
 class Company(models.Model):
 
@@ -12,7 +12,7 @@ class Company(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
     categories = models.ManyToManyField(Category)
-    location = models.ForeignKey(Location)
+    state = models.ForeignKey(State)
     address = models.TextField(blank=True, null=True)
     telephone = models.CharField(max_length=255, blank=True, null=True)
     fax = models.CharField(max_length=255, blank=True, null=True)
