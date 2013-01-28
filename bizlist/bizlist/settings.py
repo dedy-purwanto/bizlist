@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
 
     'references',
+    'articles',
 )
 
 # A sample logging configuration. The only tangible logging
