@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load paginator_extras %}
+
+{% block content %}
+
+<div id="blog_wrapper">
+    <div class="container">
+        <div>
+            <a href='{% url "companies:company_list" "all" "all-categories" "all-subcategories" %}'>Home</a>
+            {% if state %}
+            &nbsp;&gt;
+            <a href='{% url "companies:company_list" state.slug "all-categories" "all-subcategories" %}'>{{state.title}}</a>
+            {% endif %}
+            {% if category %}
+            &nbsp;&gt;
+            <a href='{% url "companies:company_list" selected_state_slug category.slug "all-subcategories" %}'>{{category.title}}</a>
+            {% endif %}
+            {% if sub_category %}
+            &nbsp;&gt;
+            <a href='{% url "companies:company_list" selected_state_slug selected_category_slug sub_category.slug %}'>{{sub_category.title}}</a>
+            {% endif %}
+            <hr />
+        </div>
+
+        <div class="row">
+
+            <div class="span8">
+
+                <h1 class="header">
+                    {{selected_category.title|default:"All"}} companies in {{state.title|default:"Myanmar"}}
+                </h1>
+
+                {% for company in company_list %}
+                <div class="post">
+                    <div class="row">
+                        <div class="span3">
+                            <a href="blog-post.html">
+                                <img class="main_pic" alt="main pic" src="img/pic_blog.png" />
+                            </a>
+                        </div>
+                        <div class="span4 info">
+                            <a href="blog-post.html">
+                                <h3>{{company.title}}</h3>
+                            </a>
+                            <p>{{company.description}}</p>
+
+                            {% if company.person_in_charge %}
+                            <div class="post_info">
+                                <div class="author">
+                                    Person in charge
+                                </div>
+                                <div class="date">
+                                    {% if company.person_position %}
+                                        {{company.person_position}} / 
+                                    {% endif %}
+                                    {{company.person_in_charge}}
+                                </div>
+                            </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <a href="blog-post.html" class="btn">View details</a>
+                </div>
+                {% endfor %}
+
+                {% if is_paginated %}
+                    {% paginator 2 %}
+                {% endif %}
+
+            </div>
+
+            <div class="span3 sidebar offset1">
+
+                <h4 class="sidebar_header">
+                    Filter results by category
+                </h4>
+
+                <ul class="sidebar_menu">
+                    {% if not category %}
+                        {% for cat in categories %}
+                            <li>
+                                <a href="{% url "companies:company_list" selected_state_slug cat.slug "all-subcategories" %}">{{cat.title}}</a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>
+                            <a href="{% url "companies:company_list" selected_state_slug "all-categories" "all-subcategories" %}">All categories</a>
+                        </li>
+                        <li>
+                            {{category.title}}
+                            <ul>
+                            {% for sub_cat in sub_categories %}
+                                <li><a href="{% url "companies:company_list" selected_state_slug category.slug sub_cat.slug %}">{{sub_cat.title}}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+
+                    {% endif %}
+                </ul>
+
+                <h4 class="sidebar_header">
+                    Filter results by location
+                </h4>
+
+                <ul class="sidebar_menu">
+                    {% for sta in states %}
+                        <li>
+                        <a href="{% url "companies:company_list" sta.slug selected_category_slug selected_sub_category_slug %}"
+                            {% if sta == state %}
+                            style='color:#87A46E'
+
+                            {% endif %}
+                            
+                            >{{sta.title}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% load paginator_extras %}
+<div class="pagination">
+    <ul>
+        <li><a href="?{{ request.GET|page_url:'1' }}">Start</a></li>
+        {% if page_obj.previous_page_number > 1 %}
+        <li><a href="?{{ request.GET|page_url:page_obj.previous_page_number }}">&larr; Prev</a></li>
+        {% else %}
+        <li><a href="?{{ request.GET|page_url:1 }}">&larr; Prev</a></li>
+        {% endif %}
+        {% for page_number in page_numbers %}
+            <li class="{% if page_number == page_obj.number %}current active{% endif %}"><a href="?{{ request.GET|page_url:page_number }}">{{ page_number }}</a></li>
+        {% endfor %}
+        {% if page_obj.next_page_number < paginator.num_pages %}
+        <li><a href="?{{ request.GET|page_url:page_obj.next_page_number }}">Next &rarr;</a></li>
+        {% else %}
+        <li><a href="?{{ request.GET|page_url:paginator.num_pages }}">Next &rarr;</a></li>
+        {% endif %}
+        <li><a href="?{{ request.GET|page_url:paginator.num_pages }}">End</a></li>
+    </ul>
+</div>
+

@@ -1,1 +1,65 @@
 {% extends "base.html" %}
+{% block content %}
+
+<!-- features -->
+<div id="features" class="features_page">
+    <div class="container">
+        <div class="features1">
+            <!-- header -->
+            <h2 class="section_header">
+                <hr class="left visible-desktop">
+                <span>Featured companies</span>
+                <hr class="right visible-desktop">
+            </h2>
+
+            <!-- feature list -->
+            <div class="row">
+                {% for company in featured_companies %}
+                <div class="span4 feature">
+                    <img src="" alt="feature1" class="thumb" />
+                    <h4>
+                        {{company.title}}
+                    </h4>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="portfolio" class="portfolio_page">
+    <div class="container">
+        <div class='span8'>
+            <h2 class="section_header left">
+                <span style="width:70%">Browse companies by categories</span>
+                <hr class="right visible-desktop" style="width:38%">
+            </h2>
+            <div class="row">
+            {% for columns in categories_column %}
+                <div class='span2'>
+                    <ul>
+                    {% for category in columns %}
+                        <li><a href=''>{{category.title}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class='span3'>
+            <h2 class="section_header left">
+                <span style="width:70%">Location</span>
+                <hr class="right visible-desktop" style="width:38%">
+            </h2>
+            <div class="row">
+                <ul>
+                {% for state in states %}
+                    <li><a href=''>{{state.title}}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
