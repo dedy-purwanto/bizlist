@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <h1 class="header">{{object.title}}
+                {{object.price}}
+                {% if object.price_remarks %}
+                    ({{object.price_remarks}})
+                {% endif %}
+            </h1>
+            <img src="" />
+            <p>
+                {{object.description|linebreaks}}
+            </p>
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id='description'>
+                    <p>
+                    {{object.description}}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="span3">
+            <h4 class='header'>Contact the company</h4>
+            <hr />
+            <form method='post'>
+                {% if form.name.errors %}{{form.name.errors.0}} {% endif %}
+                {{form.name|attr:"placeholder='Enter your name'"|add_class:"required"}}
+                {% if form.email.errors %}<br />{{form.email.errors.0}} {% endif %}
+                {{form.email|attr:"placeholder='Enter your email address'"|add_class:"required"}}
+                {% if form.phone.errors %}<br />{{form.phone.errors.0}} {% endif %}
+                {{form.phone|attr:"placeholder='Enter your phone'"|add_class:"required"}}
+                {% if form.country.errors %}<br />{{form.country.errors.0}} {% endif %}
+                {{form.country|attr:"placeholder='Enter your country'"|add_class:"required"}}
+                {% if form.message.errors %}<br />{{form.message.errors.0}} {% endif %}
+                {{form.message|attr:"placeholder='Type your enquiry here...'"|add_class:"required"}}
+                {% csrf_token %}
+                <input type='submit' class='btn btn-primary' value='Submit' />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -43,7 +43,7 @@ class Product(models.Model):
     company = models.ForeignKey(Company, related_name='products')
     category = models.ForeignKey(Category)
     price = models.CharField(max_length=255)
-    price_remakrs = models.CharField(max_length=255, blank=True, null=True)
+    price_remarks = models.CharField(max_length=255, blank=True, null=True)
     photo_url = models.URLField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
