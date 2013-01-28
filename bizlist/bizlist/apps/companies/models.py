@@ -22,6 +22,8 @@ class Company(models.Model):
     person_position = models.CharField(max_length=255, blank=True, null=True)
     description_wanted = models.TextField(blank=True, null=True)
     logo_url = models.URLField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
