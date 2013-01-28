@@ -135,6 +135,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'widget_tweaks',
 
+    'cores',
     'references',
     'articles',
     'companies',
