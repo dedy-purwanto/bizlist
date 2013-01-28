@@ -132,6 +132,8 @@ INSTALLED_APPS = (
     'south',
     'easy_thumbnails',
     'widget_tweaks',
+
+    'references',
 )
 
 # A sample logging configuration. The only tangible logging
