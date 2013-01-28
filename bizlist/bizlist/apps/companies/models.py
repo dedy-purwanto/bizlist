@@ -5,7 +5,7 @@ from references.models import State, Category
 
 class Company(models.Model):
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     slug = models.CharField(max_length=255, blank=True, null=True)
     featured = models.BooleanField(default=False)
     description = models.TextField()
@@ -27,6 +27,9 @@ class Company(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return self.title
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Company, self).save(*args, **kwargs)
@@ -37,7 +40,7 @@ class Product(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
     description = models.TextField()
-    company = models.ForeignKey(Company)
+    company = models.ForeignKey(Company, related_name='products')
     category = models.ForeignKey(Category)
     price = models.CharField(max_length=255)
     price_remakrs = models.CharField(max_length=255, blank=True, null=True)
@@ -47,7 +50,7 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Company, self).save(*args, **kwargs)
+        super(Product, self).save(*args, **kwargs)
 
 class Photo(models.Model):
     picture = models.ImageField('Picture', blank=True, null=True, upload_to='photos/%Y/%m/%d')
@@ -57,10 +60,12 @@ class Photo(models.Model):
 
 class Inquiry(models.Model):
     name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
     phone = models.CharField(max_length=255, blank=True, null=True)
     country = models.CharField(max_length=255, blank=True, null=True)
     message = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+    company = models.ForeignKey(Company)
+    product = models.ForeignKey(Product, blank=True, null=True)
 

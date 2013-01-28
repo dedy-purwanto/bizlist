@@ -40,7 +40,7 @@
                             </a>
                         </div>
                         <div class="span4 info">
-                            <a href="blog-post.html">
+                            <a href="{% url "companies:company_detail" company.slug %}">
                                 <h3>{{company.title}}</h3>
                             </a>
                             <p>{{company.description}}</p>

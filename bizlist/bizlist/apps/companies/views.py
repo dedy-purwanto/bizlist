@@ -1,7 +1,33 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
+from django.contrib import messages
 
 from references.models import State, Category
 from .models import Company, Product
+from .forms import InquiryForm
+
+class CompanyDetailView(FormView):
+    form_class = InquiryForm
+    template_name = 'companies/company_detail.html'
+
+    def form_valid(self, form):
+        form.save(company=self.get_object())
+        message = "Your inquiry has been sent. Thank you."
+        messages.add_message(self.request, messages.SUCCESS, message)
+        return super(CompanyDetailView, self).form_valid(form)
+
+    def get_object(self, *args, **kwargs):
+        slug = self.kwargs['company_slug']
+        return Company.objects.get(slug=slug)
+
+    def get_success_url(self, *args, **kwargs):
+        return self.request.get_full_path()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CompanyDetailView, self).get_context_data(*args, **kwargs)
+
+        context['object'] = self.get_object()
+
+        return context
 
 
 class CompanyListView(ListView):
