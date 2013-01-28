@@ -43,7 +43,6 @@ class Product(models.Model):
         self.slug = slugify(self.title)
         super(Company, self).save(*args, **kwargs)
 
-
 class Photo(models.Model):
     picture = models.ImageField('Picture', blank=True, null=True, upload_to='photos/%Y/%m/%d')
     company = models.ForeignKey(Company, blank=True, null=True)
