@@ -72,7 +72,7 @@ class CompanyDetailView(FormView):
 
 class CompanyListView(ListViewMixin, ListView):
 
-    paginate_by = 2
+    paginate_by = 10
     model = Company
     template_name = 'companies/company_list.html'
 
@@ -107,7 +107,7 @@ class CompanyListView(ListViewMixin, ListView):
 
 class ProductListView(ListViewMixin, ListView):
 
-    paginate_by = 2
+    paginate_by = 10
     model = Product
     template_name = 'companies/product_list.html'
 
