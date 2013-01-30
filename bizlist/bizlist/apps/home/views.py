@@ -13,10 +13,10 @@ class HomeView(TemplateView):
 
         context['states'] = State.objects.all().order_by('title')
 
-        categories = Category.objects.all()
+        categories = Category.objects.filter(parent=None)
 
         categories_column = []
-        categories_rows = 10
+        categories_rows = 8
 
         for i in range(0,99):
             categories_column.append(categories[i * categories_rows : (i * categories_rows) + categories_rows])
