@@ -7,7 +7,7 @@
 <div id="blog_wrapper">
     <div class="container">
         <div>
-            <a href='{% url "companies:product_list" "all" "all-categories" "all-subcategories" %}'>Home</a>
+            <a href='{% url "companies:product_list" "all" "all-categories" "all-subcategories" %}'>Myanmar products</a>
             {% if state %}
             &nbsp;&gt;
             <a href='{% url "companies:product_list" state.slug "all-categories" "all-subcategories" %}'>{{state.title}}</a>
