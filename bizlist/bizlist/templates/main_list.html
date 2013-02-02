@@ -3,16 +3,32 @@
     <div class="container">
         <div class='span9' style='margin-left:0px'>
             <h2 class="section_header left" style='margin-bottom:20px;'>
-                <span style="width:70%">Browse companies by categories</span>
+                <span style="width:70%">Browse {% if is_product %} products {% else %} companies {% endif %} by categories</span>
                 <hr class="right visible-desktop" style="width:42%;margin-right:39px;">
             </h2>
             {% for columns in categories_column %}
                 <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;margin-bottom:0px;'>
                     {% for category in columns %}
                     <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
-                        <a href='{% url 'companies:company_list' 'all' category.slug 'all-subcategories' %}' class='question'>{{category.title}} </a>
+                        <a href='
+                            {% if is_product %}
+                                {% url 'companies:product_list' 'all' category.slug 'all-subcategories' %}
+
+                            {% else %}
+                                {% url 'companies:company_list' 'all' category.slug 'all-subcategories' %}
+                            {% endif %}
+                            
+                            ' class='question'>{{category.title}} </a>
                         &nbsp;
-                        <div class='number' style='position:static;display:inline-block;'>{{category.companies.all.count}}</div>
+                        <div class='number' style='position:static;display:inline-block;'>
+                            {% if is_product %}
+                                {{category.get_products.count}}
+                            {% else %}
+                                {{category.get_companies.count}}
+                            {% endif %}
+
+                        
+                        </div>
                     </div>
                     {% endfor %}
                 </div>
@@ -26,8 +42,21 @@
             <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;margin-bottom:0px;'>
                 {% for state in states %}
                 <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
-                    <a href='{% url 'companies:company_list' state.slug 'all-categories' 'all-subcategories' %}' class='question'>{{state.title}} </a>
-                    <div class='number' style='position:static;display:inline-block;'>{{state.companies.all.count}}</div>
+                    <a href='
+                        {% if is_product %}
+                            {% url 'companies:product_list' state.slug 'all-categories' 'all-subcategories' %}
+                        {% else %}
+                            {% url 'companies:company_list' state.slug 'all-categories' 'all-subcategories' %}
+                        {% endif %}
+                        
+                    ' class='question'>{{state.title}} </a>
+                    <div class='number' style='position:static;display:inline-block;'>
+                        {% if is_product %}
+                            {{state.get_products.count}}
+                        {% else %}
+                            {{state.companies.all.count}}
+                        {% endif %}
+                    </div>
                 </div>
                 {% endfor %}
             </div>
