@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% load url from future %}
 {% load paginator_extras %}
 
@@ -37,15 +38,15 @@
                     <div class="post">
                         <div class="row">
                             <div class="span3">
-                                <a href="blog-post.html">
-                                    <img class="main_pic" alt="main pic" src="img/pic_blog.png" />
+                                <a href="{% url 'companies:company_detail' company.pk company.slug %}">
+                                    <img src="{% thumbnail company.picture 270x244 crop %}" alt="{{company.title}}" class="main_pic">
                                 </a>
                             </div>
                             <div class="span4 info">
                                 <a href="{% url "companies:company_detail" company.pk company.slug %}">
                                     <h3>{{company.title}}</h3>
                                 </a>
-                                <p>{{company.description}}</p>
+                                <p>{{company.description|truncatechars:255}}</p>
 
                                 {% if company.person_in_charge %}
                                 <div class="post_info">
