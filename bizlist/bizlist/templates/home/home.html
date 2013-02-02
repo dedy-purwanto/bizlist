@@ -4,32 +4,43 @@
 {% block content %}
 
 <!-- features -->
-<div id="features" class="features_page">
-    <div class="container">
-        <div class="features1">
-            <!-- header -->
-            <h2 class="section_header">
-                <hr class="left visible-desktop">
-                <span>Featured companies</span>
-                <hr class="right visible-desktop">
-            </h2>
-
-            <!-- feature list -->
-            <div class="row">
-                {% for company in featured_companies %}
-                <div class="span4 feature" style='text-align:center'>
-                    <a href='{% url 'companies:company_detail' company.pk company.slug %}'>
-                        <img src="{% thumbnail company.picture 260x195 crop %}" alt="{{company.title}}" class="thumb">
-                        <h4 class='header' style='color:#000'>
-                            {{company.title}}
-                        </h4>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-
+<div id='hero'>
+    <div id='intro'>
+        <div id='container'>
+            <h1>Myanmar's #1 Directory of Manufacturers, Exporters,<br /> Importers and other Businesses</h1>
         </div>
     </div>
+
+
+    <div id='container'>
+        <div id="features" class="features_page">
+            <div class="container">
+                <div class="features1">
+                    <!-- header -->
+                    <h2 class="section_header">
+                        <hr class="left visible-desktop">
+                        <span>Featured companies</span>
+                        <hr class="right visible-desktop">
+                    </h2>
+
+                    <!-- feature list -->
+                    <div class="row">
+                        {% for company in featured_companies %}
+                        <div class="span4 feature" style='text-align:center'>
+                            <a href='{% url 'companies:company_detail' company.pk company.slug %}'>
+                                <img src="{% thumbnail company.picture 260x195 crop %}" alt="{{company.title}}" class="thumb">
+                                <h4 class='header' style='color:#000'>
+                                    {{company.title}}
+                                </h4>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>
 </div>
 
 {% include "main_list.html" %}
