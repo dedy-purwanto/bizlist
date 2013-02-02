@@ -117,7 +117,7 @@ class CompanyListView(ListViewMixin, ListView):
             except Category.DoesNotExist:
                 pass
 
-        return qs
+        return qs.distinct()
 
 
     def get_context_data(self, *args, **kwargs):
@@ -152,7 +152,7 @@ class ProductListView(ListViewMixin, ListView):
             except Category.DoesNotExist:
                 pass
 
-        return qs
+        return qs.distinct()
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(*args, **kwargs)
