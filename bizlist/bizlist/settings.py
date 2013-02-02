@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'south',
     'easy_thumbnails',
     'widget_tweaks',
+    'captcha',
 
     'cores',
     'references',
@@ -183,6 +184,10 @@ LOGGING = {
 }
 
 APPEND_SLASH = True
+
+# Recaptcha API keys
+RECAPTCHA_PUBLIC_KEY = "6LcKWtwSAAAAAJyDnj__0knhQeO11PRZPqiyfKyK"
+RECAPTCHA_PRIVATE_KEY = "6LcKWtwSAAAAAMcl5I8uRM8YjvSBZzV0ApHTciq7"
 
 #Email settings
 EMAIL_BCC_LIST = ['kecebongsoft@gmail.com',]

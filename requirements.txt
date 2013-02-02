@@ -8,3 +8,4 @@ ipython==0.13.1
 psycopg2==2.4.5
 seacucumber==1.5
 wsgiref==0.1.2
+django-recaptcha==0.0.3

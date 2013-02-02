@@ -1,8 +1,13 @@
 from django import forms
 
+from captcha.fields import ReCaptchaField
+
 from .models import Inquiry
 
 class InquiryForm(forms.ModelForm):
+
+    captcha = ReCaptchaField()
+
     def save(self, *args, **kwargs):
         company = kwargs.pop('company')
         self.instance.company = company
