@@ -59,6 +59,10 @@ class ListViewMixin(object):
 
         context['categories_column'] = categories_column
 
+
+        context['products_total'] = Product.objects.all().count()
+        context['companies_total'] = Company.objects.all().count()
+
         return context
 
 

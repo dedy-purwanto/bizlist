@@ -84,20 +84,26 @@
                         {% if not category %}
                             {% for cat in categories %}
                                 <li>
-                                    <a href="{% url "companies:company_list" selected_state_slug cat.slug "all-subcategories" %}">{{cat.title}}</a>
+                                <a href="{% url "companies:company_list" selected_state_slug cat.slug "all-subcategories" %}">{{cat.title}}
+                                    ({{cat.get_companies.count}})
+                                </a>
                                 </li>
                             {% endfor %}
                         {% else %}
                             <li>
-                                <a href="{% url "companies:company_list" selected_state_slug "all-categories" "all-subcategories" %}">All categories</a>
+                            <a href="{% url "companies:company_list" selected_state_slug "all-categories" "all-subcategories" %}">All categories 
+                                ({{companies_total}})</a>
                             </li>
                             <li>
                                 <a href='{% url 'companies:company_list' selected_state_slug category.slug 'all-subcategories' %}'>
                                     {{category.title}}
+                                    ({{category.get_companies.count}})
                                 </a>
                                 <ul>
                                 {% for sub_cat in sub_categories %}
-                                    <li><a href="{% url "companies:company_list" selected_state_slug category.slug sub_cat.slug %}">{{sub_cat.title}}</a></li>
+                                <li><a href="{% url "companies:company_list" selected_state_slug category.slug sub_cat.slug %}">{{sub_cat.title}}
+                                    ({{sub_cat.get_companies.count}})
+                                </a></li>
                                 {% endfor %}
                                 </ul>
                             </li>
@@ -118,7 +124,10 @@
 
                                 {% endif %}
                                 
-                                >{{sta.title}}</a>
+                                >{{sta.title}}
+                                ({{sta.companies.count}})
+                            
+                            </a>
                             </li>
                         {% endfor %}
                     </ul>
