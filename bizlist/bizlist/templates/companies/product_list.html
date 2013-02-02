@@ -96,7 +96,10 @@
                                 <a href="{% url "companies:product_list" selected_state_slug "all-categories" "all-subcategories" %}">All categories</a>
                             </li>
                             <li>
-                                {{category.title}}
+                                <a href='{% url 'companies:product_list' selected_state_slug category.slug 'all-subcategories' %}'>
+                                    {{category.title}}
+                                </a>
+                                
                                 <ul>
                                 {% for sub_cat in sub_categories %}
                                     <li><a href="{% url "companies:product_list" selected_state_slug category.slug sub_cat.slug %}">{{sub_cat.title}}</a></li>

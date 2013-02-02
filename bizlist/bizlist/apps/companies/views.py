@@ -1,5 +1,6 @@
 from django.views.generic import ListView, FormView
 from django.contrib import messages
+from django.db.models import Q
 
 from references.models import State, Category
 from .models import Company, Product
@@ -108,7 +109,7 @@ class CompanyListView(ListViewMixin, ListView):
         except Category.DoesNotExist:
             try:
                 category = Category.objects.get(slug=self.kwargs['category'])
-                qs = qs.filter(categories=category)
+                qs = qs.filter(Q(categories=category) | Q(categories__parent=category))
             except Category.DoesNotExist:
                 pass
 
@@ -143,7 +144,7 @@ class ProductListView(ListViewMixin, ListView):
         except Category.DoesNotExist:
             try:
                 category = Category.objects.get(slug=self.kwargs['category'])
-                qs = qs.filter(category=category)
+                qs = qs.filter(Q(category=category) | Q(category__parent=category))
             except Category.DoesNotExist:
                 pass
 
