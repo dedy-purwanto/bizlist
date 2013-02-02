@@ -41,7 +41,7 @@
                     <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
                         <a href='' class='question'>{{category.title}} </a>
                         &nbsp;
-                        <div class='number' style='position:static;display:inline-block;'>1</div>
+                        <div class='number' style='position:static;display:inline-block;'>{{category.companies.all.count}}</div>
                     </div>
                     {% endfor %}
                 </div>
@@ -56,7 +56,7 @@
                 {% for state in states %}
                 <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
                     <a href='' class='question'>{{state.title}}</a>
-                    <div class='number' style='position:static;display:inline-block;'>1</div>
+                    <div class='number' style='position:static;display:inline-block;'>{{state.companies.all.count}}</div>
                 </div>
                 {% endfor %}
             </div>
