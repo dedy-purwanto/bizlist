@@ -30,34 +30,35 @@
 
 <div id="portfolio" class="portfolio_page">
     <div class="container">
-        <div class='span8'>
-            <h2 class="section_header left" style='margin-bottom:5px;'>
+        <div class='span9' style='margin-left:0px'>
+            <h2 class="section_header left" style='margin-bottom:20px;'>
                 <span style="width:70%">Browse companies by categories</span>
-                <hr class="right visible-desktop" style="width:38%">
+                <hr class="right visible-desktop" style="width:42%;margin-right:39px;">
             </h2>
-            <div class="row">
             {% for columns in categories_column %}
-                <div class='span2'>
-                    <ul>
+                <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;'>
                     {% for category in columns %}
-                        <li><a href=''>{{category.title}}</a></li>
+                    <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
+                        <a href='' class='question'>{{category.title}} </a>
+                        &nbsp;
+                        <div class='number' style='position:static;display:inline-block;'>1</div>
+                    </div>
                     {% endfor %}
-                    </ul>
                 </div>
             {% endfor %}
-            </div>
         </div>
-        <div class='span3'>
-            <h2 class="section_header left" style='margin-bottom:5px;'>
+        <div class='span3' style='margin-left:0px;'>
+            <h2 class="section_header left" style='margin-bottom:20px;'>
                 <span style="width:70%">Location</span>
                 <hr class="right visible-desktop" style="width:38%">
             </h2>
-            <div class="row">
-                <ul>
+            <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;'>
                 {% for state in states %}
-                    <li><a href=''>{{state.title}}</a></li>
+                <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
+                    <a href='' class='question'>{{state.title}}</a>
+                    <div class='number' style='position:static;display:inline-block;'>1</div>
+                </div>
                 {% endfor %}
-                </ul>
             </div>
         </div>
     </div>
