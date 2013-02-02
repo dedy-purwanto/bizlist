@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% load url from future %}
 {% load widget_tweaks %}
 
@@ -7,32 +8,45 @@
 <div class="container">
     <div class="row">
         <div class="span8">
-            <h1 class="header">{{object.title}}
-                {{object.price}}
-                {% if object.price_remarks %}
-                    ({{object.price_remarks}})
-                {% endif %}
-            </h1>
-            <img src="" />
-            <p>
-                {{object.description|linebreaks}}
-            </p>
+            <div class='row'>
+                <h1 class="header">{{object.title}}
+                    {{object.price}}
+                    {% if object.price_remarks %}
+                        ({{object.price_remarks}})
+                    {% endif %}
+                </h1>
+                <img src="{% thumbnail object.picture 360x270 crop %}" alt="{{object.title}}" class="post_pic" style='float:left;margin-right:25px;margin-bottom:25px;'>
+                <p>
+                    {{object.description|linebreaks}}
+                </p>
+            </div>
+            <div class='row'>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
-            </ul>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div class="tab-pane active" id='description'>
-                    <p>
-                    {{object.description}}
-                    </p>
+                <div class="tab-content">
+                    <div class="tab-pane active" id='description'>
+                        <p>
+                        {{object.description}}
+                        </p>
+                        <p>
+                        <a href='{% url 'companies:company_detail' object.company.pk object.company.slug %}'>
+                            View company detail
+                        </a>
+                        </p>
+                    </div>
                 </div>
             </div>
 
         </div>
 
         <div class="span3">
+            <br />
+            <br />
+            <br />
+            <br />
             <h4 class='header'>Contact the company</h4>
             <hr />
             <form method='post'>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% load url from future %}
 {% load widget_tweaks %}
 
@@ -7,85 +8,106 @@
 <div class="container">
     <div class="row">
         <div class="span8">
-            <h1 class="header">{{object.title}}</h1>
-            <img src="" />
-            <p>
-                <strong>{{object.title}}</strong>
-                <br />
-                {{object.address|linebreaks}}
-                {% if object.telephone %}
-                tel: {{object.telephone}}<br />
-                {% endif %}
-                {% if object.fax %}
-                fax: {{object.fax}}<br /><br />
-                {% endif %}
-                {% if object.person_in_charge %}
-                <strong>Person in charge</strong><br />
-                {{object.person_in_charge}}
-                {% if object.person_position %}
-                    ({{object.person_position}})
-                {% endif %}
-
-                {% endif %}
-            </p>
-
-            <ul class="nav nav-tabs">
-                <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
-                {% if object.latitude and object.longitude %}
-                <li><a href='#map' data-toggle='tab'>Map</a></li>
-                {% endif %}
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id='description'>
-                    <p>
-                    {{object.description}}
-                    </p>
-                    {% if object.description_wanted %}
-                    <p>
-                    {{object.description_wanted}}
-                    </p>
+            <div class='row'>
+                <h1 class="header">{{object.title}}</h1>
+                <img src="{% thumbnail object.picture 360x270 crop %}" alt="{{object.title}}" class="post_pic" style='float:left;margin-right:25px;margin-bottom:25px;'>
+                <p>
+                    <strong>{{object.title}}</strong>
+                    <br />
+                    {{object.address|linebreaks}}
+                    {% if object.telephone %}
+                    tel: {{object.telephone}}<br />
+                    {% endif %}
+                    {% if object.fax %}
+                    fax: {{object.fax}}<br /><br />
+                    {% endif %}
+                    {% if object.person_in_charge %}
+                    <strong>Person in charge</strong><br />
+                    {{object.person_in_charge}}
+                    {% if object.person_position %}
+                        ({{object.person_position}})
                     {% endif %}
 
-                    {% if object.products.all.exists %}
-                    <h4 class='header'>Products</h4>
-                    <hr />
-                    <table class="table table-stripped">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Remarks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for product in object.products.all %}
-                            <tr>
-                                <td>{{forloop.counter0}}</td>
-                                <td>{{product.title}}</td>
-                                <td>{{product.price}}</td>
-                                <td>{{product.price_remakrs}}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-
-                    </table>
                     {% endif %}
-                </div>
-                {% if object.latitude and object.longitude %}
-                <div class="tab-pane" id='map'>
-                
-                </div>
-                {% endif %}
-
+                </p>
             </div>
+            <div class='row'>
 
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
+                    {% if object.latitude and object.longitude %}
+                    <li><a href='#map' data-toggle='tab'>Map</a></li>
+                    {% endif %}
+                </ul>
 
+                <div class="tab-content">
+                    <div class="tab-pane active" id='description'>
+                        <p>
+                        {{object.description}}
+                        </p>
+                        {% if object.description_wanted %}
+                        <p>
+                        {{object.description_wanted}}
+                        </p>
+                        {% endif %}
 
+                        {% if object.products.all.exists %}
+                        <h4 class='header'>Products</h4>
+                        <hr />
+                        <table class="table table-stripped">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in object.products.all %}
+                                <tr>
+                                    <td>
+                                        <a style='color:#000' href='{% url 'companies:product_detail' object.pk object.slug product.pk product.slug %}'>
+                                        {{forloop.counter0|add:1}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style='color:#000' href='{% url 'companies:product_detail' object.pk object.slug product.pk product.slug %}'>
+                                            {{product.title}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style='color:#000' href='{% url 'companies:product_detail' object.pk object.slug product.pk product.slug %}'>
+                                        {{product.price}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a style='color:#000' href='{% url 'companies:product_detail' object.pk object.slug product.pk product.slug %}'>
+                                        {{product.price_remarks|default:''}}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                        {% endif %}
+                    </div>
+                    {% if object.latitude and object.longitude %}
+                    <div class="tab-pane" id='map'>
+                    
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
 
         <div class="span3">
+            <br />
+            <br />
+            <br />
+            <br />
             <h4 class='header'>Contact the company</h4>
             <hr />
             <form method='post'>
