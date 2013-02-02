@@ -21,7 +21,7 @@ class Company(models.Model):
     person_in_charge = models.CharField(max_length=255, blank=True, null=True)
     person_position = models.CharField(max_length=255, blank=True, null=True)
     description_wanted = models.TextField(blank=True, null=True)
-    logo_url = models.URLField(blank=True, null=True)
+    picture = models.ImageField('Picture', blank=True, null=True, upload_to='companies/%Y/%m/%d')
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -44,7 +44,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products')
     price = models.CharField(max_length=255)
     price_remarks = models.CharField(max_length=255, blank=True, null=True)
-    photo_url = models.URLField(blank=True, null=True)
+    picture = models.ImageField('Picture', blank=True, null=True, upload_to='products/%Y/%m/%d')
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

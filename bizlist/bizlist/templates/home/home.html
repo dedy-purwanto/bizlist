@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 {% load url from future %}
 {% block content %}
 
@@ -16,11 +17,13 @@
             <!-- feature list -->
             <div class="row">
                 {% for company in featured_companies %}
-                <div class="span4 feature">
-                    <img src="" alt="feature1" class="thumb" />
-                    <h4>
-                        {{company.title}}
-                    </h4>
+                <div class="span4 feature" style='text-align:center'>
+                    <a href='{% url 'companies:company_detail' company.pk company.slug %}'>
+                        <img src="{% thumbnail company.picture 260x195 crop %}" alt="{{company.title}}" class="thumb">
+                        <h4 class='header' style='color:#000'>
+                            {{company.title}}
+                        </h4>
+                    </a>
                 </div>
                 {% endfor %}
             </div>

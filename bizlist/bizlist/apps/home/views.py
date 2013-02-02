@@ -30,7 +30,7 @@ class HomeView(TemplateView):
 
         context['categories_column'] = categories_column
 
-        context['featured_companies'] = Company.objects.filter(featured=True)[:3]
+        context['featured_companies'] = Company.objects.filter(featured=True).exclude(picture=None).order_by('?')[:3]
 
 
         return context
