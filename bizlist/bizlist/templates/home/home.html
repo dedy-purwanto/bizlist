@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load url from future %}
 {% block content %}
 
 <!-- features -->
@@ -39,7 +40,7 @@
                 <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;'>
                     {% for category in columns %}
                     <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
-                        <a href='' class='question'>{{category.title}} </a>
+                        <a href='{% url 'companies:company_list' 'all' category.slug 'all-subcategories' %}' class='question'>{{category.title}} </a>
                         &nbsp;
                         <div class='number' style='position:static;display:inline-block;'>{{category.companies.all.count}}</div>
                     </div>
@@ -55,7 +56,7 @@
             <div class='span3' id='faq' style='margin-left:0px;padding-left:0px;'>
                 {% for state in states %}
                 <div class='faq' style='padding-left:0px;margin-bottom:10px;'>
-                    <a href='' class='question'>{{state.title}}</a>
+                    <a href='{% url 'companies:company_list' state.slug 'all-categories' 'all-subcategories' %}' class='question'>{{state.title}} </a>
                     <div class='number' style='position:static;display:inline-block;'>{{state.companies.all.count}}</div>
                 </div>
                 {% endfor %}
