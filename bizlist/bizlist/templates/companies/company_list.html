@@ -3,6 +3,22 @@
 {% load url from future %}
 {% load paginator_extras %}
 
+{% block title %}
+{% if category.pk or sub_category.pk or state.pk %}
+{{selected_category.title|default:"All"}} companies in {{state.title|default:"Myanmar"}}
+{% else %}
+Browse directory of Myanmar manufacturers, exporters, importers and other businesses
+{% endif %}
+{% endblock %}
+
+{% block meta-description %}
+{% if category.pk or sub_category.pk or state.pk %}
+Find all {{category.title}} {% if sub_category.pk %} and {{sub_category.title}} {% endif %} companies {% if state.pk %}in {{state.title}} {% endif %}. We're Myanmar's #1 directory of manufacturers, exporters, importers and other businesses.
+{% else %}
+Find Myanmar manufacturers, exporters, importers and other businesses by browsing this database. Filter by category and location. Myanmar's #1 directory of manufacturers, exporters, importers and other businesses.
+{% endif %}
+{% endblock %}
+
 {% block content %}
 
 {% if category.pk or sub_category.pk or state.pk %} 

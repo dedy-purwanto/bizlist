@@ -4,6 +4,10 @@
 {% load url from future %}
 {% load widget_tweaks %}
 
+{% block title %}
+{{flatpage.title}}
+{% endblock %}
+
 {% block content %}
 <div id="blog_wrapper" class="blog_post">
 <div class="container">

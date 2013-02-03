@@ -3,6 +3,14 @@
 {% load url from future %}
 {% load widget_tweaks %}
 
+{% block title %}
+{{object.title}}
+{% endblock %}
+
+{% block meta-description %}
+{{object.title}} - read about this and more Myanmar business news, market analysis, investment outlook, companies, industries, political news, etc.
+{% endblock %}
+
 {% block content %}
 <div id="blog_wrapper" class="blog_post">
 <div class="container">
