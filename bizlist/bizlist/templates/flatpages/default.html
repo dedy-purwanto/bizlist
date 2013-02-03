@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load flatpages %}
+{% load thumbnail %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div id="blog_wrapper" class="blog_post">
+<div class="container">
+    <div class="row pull-left">
+        <div class="span9 pull-left">
+            <h1 class="header">{{flatpage.title}}</h1>
+            <p>
+                {{flatpage.content|safe}}
+            </p>
+        </div>
+
+        <div class="span3 pull-right">
+            <br /> <br /> <br /> <br />
+            <h4 class='header'>Also read</h4>
+            <hr />
+            <ul class="sidebar_menu">
+                {% get_flatpages as flatpages %}
+
+                {% for page in flatpages %}
+                <li> <a href="{{page.url}}">{{page.title}} </a> </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</div>
+
+{% endblock %}
