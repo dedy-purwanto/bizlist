@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url(r'', include('home.urls', namespace='home')),
     url(r'', include('companies.urls', namespace='companies')),
+    url(r'articles/', include('articles.urls', namespace='articles')),
 
 )
 

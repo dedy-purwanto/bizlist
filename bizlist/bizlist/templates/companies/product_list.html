@@ -68,7 +68,7 @@
 
                             </div>
                         </div>
-                        <a href="blog-post.html" class="btn">View details</a>
+                        <a href="{% url 'companies:product_detail' product.company.pk product.company.slug product.pk product.slug %}" class="btn">View details</a>
                     </div>
                     {% endfor %}
 

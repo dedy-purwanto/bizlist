@@ -11,7 +11,9 @@
     <div class="row pull-left">
         <div class="span8 pull-left">
             <h1 class="header">{{object.title}}</h1>
+            {% if object.picture %}
             <img src="{% thumbnail object.picture 360x270 crop %}" alt="{{object.title}}" class="post_pic pull-left" style='margin-right:25px;margin-bottom:25px;'>
+            {% endif %}
             <p>
                 <strong>{{object.title}}</strong>
                 <br />

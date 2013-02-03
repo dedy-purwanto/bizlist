@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div id="blog_wrapper" class="blog_post">
+<div class="container">
+    <div class="row pull-left">
+        <div class="span9 pull-left">
+            <h1 class="header">{{object.title}}</h1>
+            {% if object.picture %}
+            <img src="{% thumbnail object.picture 736x438 crop %}" alt="{{object.title}}" class="post_pic" >
+            {% endif %}
+            <p>
+                {{object.description|safe|linebreaks}}
+                <br /><br />
+                <div class="date">
+                    Posted at:<br />
+                    {{object.date_created|date:"d-m-Y"}}
+                </div>
+            </p>
+        </div>
+
+        <div class="span3 pull-right">
+            <br /> <br /> <br /> <br />
+            <h4 class='header'>Recent news</h4>
+            <hr />
+            <ul class="sidebar_menu">
+                {% for article in articles %}
+                <li> <a href="{% url "articles:detail" article.pk article.slug %}">{{article.title}} </a> </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+</div>
+
+{% endblock %}

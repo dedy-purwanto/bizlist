@@ -16,7 +16,9 @@
                         ({{object.price_remarks}})
                     {% endif %}
                 </h1>
+                {% if object.picture %}
                 <img src="{% thumbnail object.picture 360x270 crop %}" alt="{{object.title}}" class="post_pic" style='float:left;margin-right:25px;margin-bottom:25px;'>
+                {% endif %}
                 <p>
                     {{object.description|linebreaks}}
                 </p>

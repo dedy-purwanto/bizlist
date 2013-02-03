@@ -8,6 +8,9 @@ class Article(models.Model):
     meta_keywords = models.CharField(max_length=255, blank=True, null=True)
     meta_description = models.TextField(blank=True, null=True)
     slug = models.CharField(max_length=255, blank=True, null=True)
+    picture = models.ImageField('Picture', blank=True, null=True, upload_to='products/%Y/%m/%d')
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
