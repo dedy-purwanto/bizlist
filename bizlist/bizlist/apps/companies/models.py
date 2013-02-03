@@ -1,7 +1,10 @@
 from django.db import models
+from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 from django.template.defaultfilters import slugify
 
-from references.models import State, Category
+from references.models import State, Category, EmailTemplate
+from emails import send_using_template
 
 class Company(models.Model):
 
@@ -68,4 +71,22 @@ class Inquiry(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     company = models.ForeignKey(Company)
     product = models.ForeignKey(Product, blank=True, null=True)
+
+    def send_email(self, send_thankyou=True):
+        context = { 
+                'inquiry' : self,
+        }
+        template = EmailTemplate.objects.get(slug='inquiry')
+        send_using_template(template, context, self.company.email)
+
+        if send_thankyou:
+            self.send_email_thankyou()
+
+    def send_email_thankyou(self):
+        context = { 
+                'inquiry' : self,
+        }
+
+        template = EmailTemplate.objects.get(slug='inquiry-thank-you')
+        send_using_template(template, context, self.email)
 

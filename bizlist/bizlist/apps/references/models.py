@@ -54,3 +54,23 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Category, self).save(*args, **kwargs)
+
+class EmailTemplate(models.Model):
+
+    name = models.CharField(max_length=255)
+    subject = models.CharField(max_length=255)
+    slug = models.CharField(max_length=255)
+    template = models.TextField()
+    template_html = models.TextField(blank=True)
+
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+
+    def save(self):
+        if not self.id:
+            self.slug = slugify(self.name)
+
+        return super(EmailTemplate, self).save()
+
+    def __unicode__(self):
+        return "%s" % self.name

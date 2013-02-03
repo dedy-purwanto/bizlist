@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import State, Category
+from .models import State, Category, EmailTemplate
 
 
 class StateAdmin(admin.ModelAdmin):
@@ -26,3 +26,14 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(Category, CategoryAdmin)
+
+class EmailTemplateAdmin(admin.ModelAdmin):
+    fields = ('name', 'subject', 'template', 'template_html', )
+
+    list_display = (
+            'id',
+            'name',
+            'slug',
+    )
+
+admin.site.register(EmailTemplate, EmailTemplateAdmin)

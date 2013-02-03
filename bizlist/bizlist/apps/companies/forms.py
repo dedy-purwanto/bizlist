@@ -15,7 +15,10 @@ class InquiryForm(forms.ModelForm):
             product = kwargs.pop('product')
             self.instance.product = product
 
-        return super(InquiryForm, self).save(*args, **kwargs)
+        inquiry = super(InquiryForm, self).save(*args, **kwargs)
+        inquiry.send_email()
+
+        return inquiry
 
     class Meta:
         model = Inquiry
