@@ -4,6 +4,7 @@ from fields.googlemapsearch import GoogleMapsWidget
 from tinymce.widgets import TinyMCE
 
 from .models import Company, Product, Photo, Inquiry
+from references.models import Category
 
 class CompanyForm(forms.ModelForm):
     latitude = forms.CharField(label="Map",widget = GoogleMapsWidget(
@@ -14,6 +15,18 @@ class CompanyForm(forms.ModelForm):
 
         error_messages={'required': 'Please select point from the map.'})
     longitude = forms.CharField(widget = forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        super(CompanyForm, self).__init__(*args, **kwargs)
+        category_choices = []
+        categories = Category.objects.filter(parent=None)
+        for category in categories:
+            category_choices.append((category.pk, category.title))
+            for child in Category.objects.filter(parent=category):
+                category_choices.append((child.pk, '%s > %s' % (category.title, child.title)))
+
+        self.fields['categories'].widget = admin.widgets.FilteredSelectMultiple('Categories', False, choices=category_choices)
+
 
     class Meta:
 
