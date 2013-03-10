@@ -2,7 +2,7 @@ from django.views.generic import ListView, FormView
 from django.contrib import messages
 from django.db.models import Q
 
-from references.models import State, Category
+from references.models import State, Category, BrowseContent
 from .models import Company, Product
 from .forms import InquiryForm
 
@@ -62,6 +62,19 @@ class ListViewMixin(object):
 
         context['products_total'] = Product.objects.all().count()
         context['companies_total'] = Company.objects.all().count()
+
+        try:
+            content = BrowseContent.objects.get(state=state, category=selected_category) 
+            if content.meta_title:
+                context['seo_meta_title'] = content.meta_title
+            if content.meta_description:
+                context['seo_meta_description'] = content.meta_description
+            if content.meta_keywords:
+                context['seo_meta_keyword'] = content.meta_keywords
+            if content.content:
+                context['seo_content'] = content.content
+        except BrowseContent.DoesNotExist:
+            pass
 
         return context
 

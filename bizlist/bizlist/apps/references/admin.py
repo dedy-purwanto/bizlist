@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import State, Category, EmailTemplate
+from .models import State, Category, EmailTemplate, BrowseContent
 
 
 class StateAdmin(admin.ModelAdmin):
@@ -37,3 +37,9 @@ class EmailTemplateAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(EmailTemplate, EmailTemplateAdmin)
+
+class BrowseContentAdmin(admin.ModelAdmin):
+    fields = ('state', 'category', 'meta_title', 'meta_description', 'meta_keywords', 'content' )
+    list_display = ('id', 'state', 'category', 'meta_title', 'meta_description', 'meta_title', 'content' )
+
+admin.site.register(BrowseContent, BrowseContentAdmin)

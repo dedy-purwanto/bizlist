@@ -1,3 +1,4 @@
+import itertools
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import slugify
@@ -74,3 +75,57 @@ class EmailTemplate(models.Model):
 
     def __unicode__(self):
         return "%s" % self.name
+
+
+class BrowseContent(models.Model):
+    state = models.ForeignKey(State, blank=True, null=True)
+    category = models.ForeignKey(Category, blank=True, null=True)
+    meta_title = models.CharField(max_length=1024, blank=True, null=True)
+    meta_keywords = models.TextField(blank=True, null=True)
+    meta_description = models.TextField(blank=True, null=True)
+    content = models.TextField(blank=True, null=True)
+
+    date_created = models.DateTimeField(auto_now_add = True)
+    date_modified = models.DateTimeField(auto_now = True)
+
+    def save(self, *args, **kwargs):
+        #Making sure no such permutation already exist if this is a new one
+        if not self.pk:
+            try:
+                content = BrowseContent.objects.get(
+                        state=self.state,
+                        category=self.category)
+                raise Exception("BrowseContent object with this permutation is already exists: %s" % (content.pk))
+            except BrowseContent.DoesNotExist:
+                pass
+
+        return super(BrowseContent, self).save(*args, **kwargs)
+
+    @staticmethod
+    def create_content(state=None, category=None):
+        try:
+            content = BrowseContent.objects.get(state=state, category=category)
+        except BrowseContent.DoesNotExist:
+            content = BrowseContent()
+            content.state = state
+            content.category = category
+            content.save()
+            
+
+    @staticmethod
+    def rebuild_permutation(delete_all=False):
+        states = [s for s in State.objects.all().order_by('title')]
+        categories = [c for c in Category.objects.all().order_by('title')]
+
+        if delete_all:
+            BrowseContent.objects.all().delete()
+
+        for p in list(itertools.product(states)): 
+            BrowseContent.create_content(state=p[0])
+
+        for p in list(itertools.product(categories)): 
+            BrowseContent.create_content(category=p[0])
+
+        for p in list(itertools.product(states, categories)): 
+            BrowseContent.create_content(state=p[0], category=p[1])
+
