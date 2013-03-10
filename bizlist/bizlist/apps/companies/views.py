@@ -45,7 +45,7 @@ class ListViewMixin(object):
 
         
         context['states'] = State.objects.all().order_by('title')
-        categories = Category.objects.filter(parent=None)
+        categories = Category.objects.filter(parent=None).order_by('title')
         categories_column = []
         categories_rows = 8
 

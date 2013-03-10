@@ -37,7 +37,6 @@ Latest Myanmar business news, market analysis, investment outlook, companies, in
                             <p>{{article.description|truncatechars:255}}</p>
                         </div>
                     </div>
-                    <a href="{% url 'articles:detail' article.pk article.slug %}" class="btn">Read more</a>
                 </div>
                 {% endfor %}
                 {% if is_paginated %}
