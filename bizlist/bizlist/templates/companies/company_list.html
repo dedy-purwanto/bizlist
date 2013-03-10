@@ -62,7 +62,7 @@ Find Myanmar manufacturers, exporters, importers and other businesses by browsin
                                 <a href="{% url "companies:company_detail" company.pk company.slug %}">
                                     <h3>{{company.title}}</h3>
                                 </a>
-                                <p>{{company.description|truncatechars:255}}</p>
+                                <p>{{company.description|truncatechars:255|safe}}</p>
 
                                 {% if company.person_in_charge %}
                                 <div class="post_info">

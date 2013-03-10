@@ -6,8 +6,8 @@ class GoogleMapsWidget(forms.HiddenInput):
 
     class Media:
         js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-            'http://maps.google.com/maps/api/js?sensor=true',
+            'https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
+            'https://maps.google.com/maps/api/js?sensor=true&language=en',
              settings.STATIC_URL + 'js/googlemapshelper.js',
         )
 

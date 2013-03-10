@@ -90,11 +90,11 @@
             <div class="tab-content">
                 <div class="tab-pane active" id='description'>
                     <p>
-                    {{object.description}}
+                    {{object.description|safe}}
                     </p>
                     {% if object.description_wanted %}
                     <p>
-                    {{object.description_wanted}}
+                    {{object.description_wanted|safe}}
                     </p>
                     {% endif %}
 

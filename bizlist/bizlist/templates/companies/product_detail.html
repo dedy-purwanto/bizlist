@@ -36,7 +36,7 @@
                 <img src="{% thumbnail object.picture 360x270 crop %}" alt="{{object.title}}" class="post_pic" style='float:left;margin-right:25px;margin-bottom:25px;'>
                 {% endif %}
                 <p>
-                    {{object.description|linebreaks}}
+                    {{object.description|safe}}
                 </p>
             </div>
 
@@ -76,7 +76,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id='description'>
                         <p>
-                        {{object.description}}
+                        {{object.description|safe}}
                         </p>
                         <p>
                         <a href='{% url 'companies:company_detail' object.company.pk object.company.slug %}'>

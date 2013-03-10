@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from fields.googlemapsearch import GoogleMapsWidget
+from tinymce.widgets import TinyMCE
 
 from .models import Company, Product, Photo, Inquiry
 
@@ -17,6 +18,20 @@ class CompanyForm(forms.ModelForm):
     class Meta:
 
         model = Company
+        widgets = {
+            'description' : TinyMCE(attrs={'cols':80, 'rows' : 10}),
+            'description_wanted' : TinyMCE(attrs={'cols':80, 'rows' : 10}),
+        }
+
+
+class ProductForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Product
+        widgets = {
+            'description' : TinyMCE(attrs={'cols':80, 'rows' : 10}),
+        }
 
 class CompanyAdmin(admin.ModelAdmin):
 
@@ -31,6 +46,8 @@ admin.site.register(Company, CompanyAdmin)
 
 
 class ProductAdmin(admin.ModelAdmin):
+
+    form = ProductForm
 
     list_display = (
             'id',
