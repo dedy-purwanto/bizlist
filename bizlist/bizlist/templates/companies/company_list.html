@@ -74,12 +74,14 @@
                     {% for company in company_list %}
                     <div class="post">
                         <div class="row">
-                            <div class="span3">
+                            {% if company.picture %}
+                            <div class="span3" style='text-align:center'>
                                 <a href="{% url 'companies:company_detail' company.pk company.slug %}">
                                     <img src="{% thumbnail company.picture 270x244 crop %}" alt="{{company.title}}" class="main_pic">
                                 </a>
                             </div>
-                            <div class="span4 info">
+                            {% endif %}
+                            <div class="{% if company.picture %}span4{% else %}span7{% endif %} info" style='padding-left:10px'>
                                 <a href="{% url "companies:company_detail" company.pk company.slug %}">
                                     <h3>{{company.title}}</h3>
                                 </a>

@@ -75,12 +75,14 @@
                     {% for product in product_list %}
                     <div class="post">
                         <div class="row">
-                            <div class="span3">
+                            {% if product.picture %}
+                            <div class="span3" style='text-align:center'>
                                 <a href="{% url "companies:product_detail" product.company.pk product.company.slug product.pk product.slug %}">
                                     <img src="{% thumbnail product.picture 270x244 crop %}" alt="{{product.title}}" class="main_pic">
                                 </a>
                             </div>
-                            <div class="span4 info">
+                            {% endif %}
+                            <div class="{% if product.picture %}span4{% else %}span7{% endif %} info" style='padding-left:10px'>
                                 <a href="{% url "companies:product_detail" product.company.pk product.company.slug product.pk product.slug %}">
                                     <h3>{{product.title}}</h3>
                                 </a>
