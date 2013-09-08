@@ -79,16 +79,8 @@
         </div>
 
         <div class="span8 pull-left">
+            <h4>About the company</h4>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a href='#description' data-toggle='tab'>About the company</a></li>
-                {% if object.latitude and object.longitude %}
-                <li><a href='#map_tab' data-toggle='tab' id='map_tab_link'>Map</a></li>
-                {% endif %}
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane active" id='description'>
                     <p>
                     {{object.description|safe}}
                     </p>
@@ -139,14 +131,10 @@
 
                     </table>
                     {% endif %}
-                </div>
                 {% if object.latitude and object.longitude %}
-                <div class="tab-pane" id='map_tab'>
                     <div id="map" style='width:100%;height:400px;'></div>
-                </div>
                 {% endif %}
 
-            </div>
         </div>
 
 
@@ -162,7 +150,6 @@
 {% block js %}
 <script>
     $(function(){
-        $("#map_tab_link").click(function(){
             {% if object.latitude and object.longitude %}
             var myOptions = {
                 center: new google.maps.LatLng({{object.latitude}}, {{object.longitude}}),
@@ -180,7 +167,6 @@
                 google.maps.event.trigger(map,'resize');
             }, 1000);
             {% endif %}
-        });
     });
 
 </script>
