@@ -39,9 +39,10 @@ class ListViewMixin(object):
         context['selected_state_slug'] = 'all' if state is None else state.slug
 
         context['states'] = State.objects.all().order_by('title')
-        context['categories'] = Category.objects.filter(parent=None).order_by('title')
+        categories = Category.objects.filter(parent=None).order_by('title')
+        sub_categories = None
         if category is not None:
-            context['sub_categories'] = Category.objects.filter(parent=category).order_by('title')
+            sub_categories = Category.objects.filter(parent=category).order_by('title')
 
         
         states = State.objects.all().order_by('title')
@@ -49,8 +50,30 @@ class ListViewMixin(object):
         if selected_category:
             for s in states:
                 s.selected_companies_count = selected_category.get_companies().filter(state=s).count()
+        else:
+            for s in states:
+                s.selected_companies_count = selected_category.get_companies().count()
+
+        if state:
+            for c in categories:
+                c.selected_companies_count = c.get_companies().filter(state=s).count()
+        else:
+            for c in categories:
+                c.selected_companies_count = c.get_companies().count()
+
+        if category:
+            if state:
+                category.selected_companies_count = category.get_companies().filter(state=s).count()
+                for c in sub_categories:
+                    c.selected_companies_count = c.get_companies().filter(state=s).count()
+            else:
+                category.selected_companies_count = category.get_companies().count()
+                for c in sub_categories:
+                    c.selected_companies_count = c.get_companies().count()
 
         context['states'] = states
+        context['categories'] = categories
+        context['sub_categories'] = sub_categories
         categories = Category.objects.filter(parent=None).order_by('title')
         categories_column = []
         categories_rows = 8

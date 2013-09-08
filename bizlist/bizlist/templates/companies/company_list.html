@@ -123,7 +123,7 @@
                             {% for cat in categories %}
                                 <li>
                                 <a href="{% url "companies:company_list" selected_state_slug cat.slug "all-subcategories" %}">{{cat.title}}
-                                    ({{cat.get_companies.count}})
+                                    ({{cat.selected_companies_count}})
                                 </a>
                                 </li>
                             {% endfor %}
@@ -135,12 +135,12 @@
                             <li>
                                 <a href='{% url 'companies:company_list' selected_state_slug category.slug 'all-subcategories' %}'>
                                     {{category.title}}
-                                    ({{category.get_companies.count}})
+                                    ({{category.selected_companies_count}})
                                 </a>
                                 <ul>
                                 {% for sub_cat in sub_categories %}
                                 <li><a href="{% url "companies:company_list" selected_state_slug category.slug sub_cat.slug %}">{{sub_cat.title}}
-                                    ({{sub_cat.get_companies.count}})
+                                    ({{sub_cat.selected_companies_count}})
                                 </a></li>
                                 {% endfor %}
                                 </ul>
