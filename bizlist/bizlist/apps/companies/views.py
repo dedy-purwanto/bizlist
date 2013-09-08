@@ -44,7 +44,13 @@ class ListViewMixin(object):
             context['sub_categories'] = Category.objects.filter(parent=category).order_by('title')
 
         
-        context['states'] = State.objects.all().order_by('title')
+        states = State.objects.all().order_by('title')
+
+        if selected_category:
+            for s in states:
+                s.selected_companies_count = selected_category.get_companies().filter(state=s).count()
+
+        context['states'] = states
         categories = Category.objects.filter(parent=None).order_by('title')
         categories_column = []
         categories_rows = 8
