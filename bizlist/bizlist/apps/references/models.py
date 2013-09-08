@@ -2,6 +2,8 @@ import itertools
 from django.db import models
 from django.db.models import Q
 from django.template.defaultfilters import slugify
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class State(models.Model):
@@ -101,6 +103,30 @@ class BrowseContent(models.Model):
 
         return super(BrowseContent, self).save(*args, **kwargs)
 
+    def generate_default_values(self):
+
+        state = self.state
+        category = self.category
+        state_title = state if state else "Myanmar"
+        category_title = category if category else "All"
+
+        if not state and not category:
+            meta_title = "Browse directory of Myanmar manufacturers, exporters, importers and other businesses"
+        else:
+            meta_title = "%s companies in %s" % (category_title, state_title)
+
+        meta_keywords = "%s companies in myanmar,  %s companies in burma,  %s importers in myanmar,  %s importers in burma,  %s manufacturers in myanmar,  %s manufacturers in burma, %s manufacturers, importers and exporters in %s, myanmar businesses, myanmar companies, myanmar directory of companies, myanmar directory of businesses, myanmar directory of manufacturers" % (category_title, category_title, \
+                category_title, category_title, category_title, category_title, category_title,\
+                state_title)
+
+        meta_descriptions = "Comprehensive list of manufacturers, importers and exporters in %s in %s, Myanmar / Burma." % (category_title if category else '', state_title if state else '')
+
+        self.meta_title = meta_title
+        self.meta_keywords = meta_keywords
+        self.meta_description = meta_descriptions
+        self.save()
+
+
     @staticmethod
     def create_content(state=None, category=None):
         try:
@@ -110,6 +136,8 @@ class BrowseContent(models.Model):
             content.state = state
             content.category = category
             content.save()
+
+        content.generate_default_values()
             
 
     @staticmethod
@@ -129,3 +157,7 @@ class BrowseContent(models.Model):
         for p in list(itertools.product(states, categories)): 
             BrowseContent.create_content(state=p[0], category=p[1])
 
+
+#@receiver(post_save, sender=BrowseContent)
+#def user_post_save(sender, instance, created, **kwargs):
+    #BrowseContent.rebuild_permutation(delete_all=False)

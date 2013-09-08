@@ -47,25 +47,24 @@ class ListViewMixin(object):
         
         states = State.objects.all().order_by('title')
 
-        if selected_category:
-            for s in states:
+        for s in states:
+            if selected_category:
                 s.selected_companies_count = selected_category.get_companies().filter(state=s).count()
-        else:
-            for s in states:
-                s.selected_companies_count = selected_category.get_companies().count()
+            else:
+                s.selected_commpanies_count = s.companies.all().count()
 
         if state:
             for c in categories:
-                c.selected_companies_count = c.get_companies().filter(state=s).count()
-        else:
-            for c in categories:
-                c.selected_companies_count = c.get_companies().count()
+                if state:
+                    c.selected_companies_count = c.get_companies().filter(state=state).count()
+                else:
+                    c.selected_companies_count = c.get_companies().count()
 
         if category:
             if state:
-                category.selected_companies_count = category.get_companies().filter(state=s).count()
+                category.selected_companies_count = category.get_companies().filter(state=state).count()
                 for c in sub_categories:
-                    c.selected_companies_count = c.get_companies().filter(state=s).count()
+                    c.selected_companies_count = c.get_companies().filter(state=state).count()
             else:
                 category.selected_companies_count = category.get_companies().count()
                 for c in sub_categories:
