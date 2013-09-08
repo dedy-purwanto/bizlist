@@ -76,8 +76,9 @@ class Inquiry(models.Model):
         context = { 
                 'inquiry' : self,
         }
+        bcc = ['nurbek.jusupov@gmail.com',]
         template = EmailTemplate.objects.get(slug='inquiry')
-        send_using_template(template, context, self.company.email)
+        send_using_template(template, context, self.company.email, bcc=bcc)
 
         if send_thankyou:
             self.send_email_thankyou()
