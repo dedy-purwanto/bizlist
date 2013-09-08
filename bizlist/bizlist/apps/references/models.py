@@ -158,6 +158,10 @@ class BrowseContent(models.Model):
             BrowseContent.create_content(state=p[0], category=p[1])
 
 
-#@receiver(post_save, sender=BrowseContent)
-#def user_post_save(sender, instance, created, **kwargs):
-    #BrowseContent.rebuild_permutation(delete_all=False)
+@receiver(post_save, sender=Category)
+def category_post_save(sender, instance, created, **kwargs):
+    BrowseContent.rebuild_permutation(delete_all=False)
+
+@receiver(post_save, sender=State)
+def state_post_save(sender, instance, created, **kwargs):
+    BrowseContent.rebuild_permutation(delete_all=False)
