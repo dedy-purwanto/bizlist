@@ -1,0 +1,2 @@
+#!/bin/sh
+pg_dump -h localhost -W -U myanmarbusinesslink myanmarbusinesslink | gzip > ~/bizlist.`date +%Y-%m-%d`.sql.gz
