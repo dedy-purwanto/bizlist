@@ -118,8 +118,8 @@ class CompanyDetailView(FormView):
         return super(CompanyDetailView, self).form_valid(form)
 
     def get_object(self, *args, **kwargs):
-        slug = self.kwargs['company_slug']
-        return Company.objects.get(slug=slug)
+        pk = self.kwargs['company_pk']
+        return Company.objects.get(pk=pk)
 
     def get_success_url(self, *args, **kwargs):
         return self.request.get_full_path()

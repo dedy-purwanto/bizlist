@@ -50,6 +50,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
     form = CompanyForm
 
+    search_fields = ('title',)
     list_display = (
             'id',
             'title',
